@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora IA de Seguros - Latinoamérica</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .paises-tag {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .pais-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+        }
+        
+        /* Calculadora */
+        .calculadora-ia {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .calculadora-ia h2 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        
+        .form-group select,
+        .form-group input {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn-calcular-ia {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-calcular-ia:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Resultado */
+        .resultado-ia {
+            display: none;
+            margin-top: 30px;
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        .resultado-ia.visible {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .precio-ia {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .precio-ia .monto {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        
+        .precio-ia .moneda {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .analisis-ia {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .analisis-ia h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .factor-list {
+            list-style: none;
+        }
+        
+        .factor-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .factor-impacto {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        
+        .impacto-alto { background: #ffebee; color: #c62828; }
+        .impacto-medio { background: #fff3e0; color: #ef6c00; }
+        .impacto-bajo { background: #e8f5e9; color: #2e7d32; }
+        
+        /* Loading */
+        .loading-ia {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loading-ia.visible {
+            display: block;
+        }
+        
+        .dots span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #667eea;
+            border-radius: 50%;
+            margin: 0 3px;
+            animation: bounce 1.4s infinite;
+        }
+        
+        .dots span:nth-child(2) { animation-delay: 0.2s; }
+        .dots span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        /* Productos Amazon */
+        .amazon-section {
+            background: white;
+            padding: 60px 0;
+        }
+        
+        .amazon-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .producto-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .producto-card:hover {
+            border-color: #ff9900;
+        }
+        
+        .btn-amazon {
+            display: inline-block;
+            background: #ff9900;
+            color: #000;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        /* Disclaimer */
+        .disclaimer-section {
+            background: #f1f3f4;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .disclaimer-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .calculadora-ia { padding: 25px; }
+            .precio-ia .monto { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">🌎 AhorraSeguro IA</div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Calculadora Inteligente de Seguros</h1>
+            <p>Precios precisos para tu país, ciudad y perfil</p>
+            <div class="paises-tag">
+                <span class="pais-badge">🇲🇽 México</span>
+                <span class="pais-badge">🇨🇴 Colombia</span>
+                <span class="pais-badge">🇦🇷 Argentina</span>
+                <span class="pais-badge">🇨🇱 Chile</span>
+                <span class="pais-badge">🇵🇪 Perú</span>
+                <span class="pais-badge">🇧🇷 Brasil</span>
+                <span class="pais-badge">🇺🇾 Uruguay</span>
+                <span class="pais-badge">+ más</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="calculadora-ia">
+            <h2>🧮 Análisis Inteligente</h2>
+            
+            <form id="ia-form">
+                <div class="form-grid">
+                    <!-- PAÍS -->
+                    <div class="form-group">
+                        <label for="pais">País *</label>
+                        <select id="pais" required onchange="actualizarCiudades()">
+                            <option value="">Selecciona país...</option>
+                            <option value="MX">🇲🇽 México</option>
+                            <option value="CO">🇨🇴 Colombia</option>
+                            <option value="AR">🇦🇷 Argentina</option>
+                            <option value="CL">🇨🇱 Chile</option>
+                            <option value="PE">🇵🇪 Perú</option>
+                            <option value="BR">🇧🇷 Brasil</option>
+                            <option value="UY">🇺🇾 Uruguay</option>
+                            <option value="EC">🇪🇨 Ecuador</option>
+                            <option value="BO">🇧🇴 Bolivia</option>
+                            <option value="PY">🇵🇾 Paraguay</option>
+                            <option value="CR">🇨🇷 Costa Rica</option>
+                            <option value="PA">🇵🇦 Panamá</option>
+                        </select>
+                    </div>
+                    
+                    <!-- CIUDAD -->
+                    <div class="form-group">
+                        <label for="ciudad">Ciudad/Región *</label>
+                        <select id="ciudad" required>
+                            <option value="">Primero selecciona país...</option>
+                        </select>
+                    </div>
+                    
+                    <!-- MARCA -->
+                    <div class="form-group">
+                        <label for="marca">Marca del Auto *</label>
+                        <select id="marca" required>
+                            <option value="">Selecciona...</option>
+                            <option value="toyota">Toyota</option>
+                            <option value="nissan">Nissan</option>
+                            <option value="chevrolet">Chevrolet</option>
+                            <option value="volkswagen">Volkswagen</option>
+                            <option value="ford">Ford</option>
+                            <option value="fiat">Fiat</option>
+                            <option value="renault">Renault</option>
+                            <option value="hyundai">Hyundai</option>
+                            <option value="kia">Kia</option>
+                            <option value="honda">Honda</option>
+                            <option value="mazda">Mazda</option>
+                            <option value="suzuki">Suzuki</option>
+                            <option value="bmw">BMW</option>
+                            <option value="mercedes">Mercedes-Benz</option>
+                            <option value="audi">Audi</option>
+                            <option value="jeep">Jeep</option>
+                        </select>
+                    </div>
+                    
+                    <!-- MODELO -->
+                    <div class="form-group">
+                        <label for="modelo">Tipo de Vehículo *</label>
+                        <select id="modelo" required>
+                            <option value="">Selecciona...</option>
+                            <option value="sedan">Sedán</option>
+                            <option value="hatchback">Hatchback</option>
+                            <option value="suv">SUV</option>
+                            <option value="pickup">Pickup</option>
+                            <option value="camioneta">Camioneta</option>
+                            <option value="deportivo">Deportivo</option>
+                            <option value="lujo">Lujo/Premium</option>
+                            <option value="utilitario">Utilitario/Furgón</option>
+                        </select>
+                    </div>
+                    
+                    <!-- AÑO -->
+                    <div class="form-group">
+                        <label for="anio">Año *</label>
+                        <select id="anio" required>
+                            <option value="">Selecciona...</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017 o anterior</option>
+                        </select>
+                    </div>
+                    
+                    <!-- EDAD -->
+                    <div class="form-group">
+                        <label for="edad">Edad del Conductor *</label>
+                        <select id="edad" required>
+                            <option value="">Selecciona...</option>
+                            <option value="18-21">18-21 años</option>
+                            <option value="22-25">22-25 años</option>
+                            <option value="26-35">26-35 años</option>
+                            <option value="36-45">36-45 años</option>
+                            <option value="46-55">46-55 años</option>
+                            <option value="56-65">56-65 años</option>
+                            <option value="65+">65+ años</option>
+                        </select>
+                    </div>
+                    
+                    <!-- HISTORIAL -->
+                    <div class="form-group">
+                        <label for="historial">Historial de Manejo *</label>
+                        <select id="historial" required>
+                            <option value="">Selecciona...</option>
+                            <option value="excelente">Excelente (0 accidentes)</option>
+                            <option value="bueno">Bueno (1 menor)</option>
+                            <option value="regular">Regular (2+ menores)</option>
+                            <option value="malo">Con incidentes graves</option>
+                        </select>
+                    </div>
+                    
+                    <!-- USO -->
+                    <div class="form-group">
+                        <label for="uso">Uso del Vehículo *</label>
+                        <select id="uso" required>
+                            <option value="">Selecciona...</option>
+                            <option value="personal">Personal/Casa-Trabajo</option>
+                            <option value="mixto">Mixto (algo de trabajo)</option>
+                            <option value="uber">Uber/Didi/Apps</option>
+                            <option value="comercial">Comercial/Negocio</option>
+                            <option value="frecuente">Viajes frecuentes carretera</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-calcular-ia">
+                    <span>🧠</span>
+                    Calcular con IA
+                </button>
+            </form>
+            
+            <!-- Loading -->
+            <div class="loading-ia" id="loading-ia">
+                <p style="color: #667eea; margin-bottom: 15px;">La IA está analizando tu perfil...</p>
+                <div class="dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <!-- Resultado -->
+            <div class="resultado-ia" id="resultado-ia">
+                <div class="precio-ia">
+                    <div class="monto" id="precio-monto">$0</div>
+                    <div class="moneda" id="moneda-texto">pesos mensuales</div>
+                </div>
+                
+                <div class="analisis-ia">
+                    <h3>📊 Factores que afectan tu precio</h3>
+                    <ul class="factor-list" id="factores-lista"></ul>
+                </div>
+                
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 12px;">
+                    <h3 style="color: #2e7d32; margin-bottom: 15px;">💡 Recomendaciones para ahorrar</h3>
+                    <div id="recomendaciones-lista"></div>
+                </div>
+            </div>
+            
+            <div id="error-ia" style="display: none; background: #ffebee; color: #c62828; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center;"></div>
+        </div>
+    </div>
+
+    <!-- Productos Amazon -->
+    <section class="amazon-section">
+        <div class="container">
+            <h2>🛡️ Protege tu Auto y Reduce tu Prima</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">Disponibles en toda Latinoamérica vía Amazon</p>
+            
+            <div class="productos-grid">
+                <div class="producto-card">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">📡</div>
+                    <h4>GPS Antirrobo</h4>
+                    <p>Rastreo satelital 24/7</p>
+                    <span style="background: #e8f5e9; color: #2e7d32; padding: 5px 10px; border-radius: 15px; font-size: 0.85rem;">-15% en tu seguro</span>
+                    <a href="https://www.amazon.com/s?k=gps+antirrobo+auto&linkCode=ll2&tag=tussegurosya-20" class="btn-amazon" target="_blank">Ver en Amazon</a>
+                </div>
+                
+                <div class="producto-card">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">📹</div>
+                    <h4>Dashcam HD</h4>
+                    <p>Cámara para auto 4K</p>
+                    <span style="background: #e8f5e9; color: #2e7d32; padding: 5px 10px; border-radius: 15px; font-size: 0.85rem;">-10% en tu seguro</span>
+                    <a href="https://www.amazon.com/s?k=dashcam+4k+auto&linkCode=ll2&tag=tussegurosya-20" class="btn-amazon" target="_blank">Ver en Amazon</a>
+                </div>
+                
+                <div class="producto-card">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">🔔</div>
+                    <h4>Alarma Inteligente</h4>
+                    <p>Sensor de impacto + app</p>
+                    <span style="background: #e8f5e9; color: #2e7d32; padding: 5px 10px; border-radius: 15px; font-size: 0.85rem;">-12% en tu seguro</span>
+                    <a href="https://www.amazon.com/s?k=alarma+auto+inteligente&linkCode=ll2&tag=tussegurosya-20" class="btn-amazon" target="_blank">Ver en Amazon</a>
+                </div>
+                
+                <div class="producto-card">
