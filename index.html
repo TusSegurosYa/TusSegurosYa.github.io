@@ -138,8 +138,8 @@
             border-left: 5px solid #28a745;
         }
         
-        .resultado.show {
-            display: block;
+        .resultado.mostrar {
+            display: block !important;
             animation: slideDown 0.5s ease;
         }
         
@@ -155,7 +155,7 @@
             margin: 10px 0;
         }
         
-        /* Sección de monetización - AFILIADOS */
+        /* Monetización */
         .monetizacion-box {
             background: #fff3cd;
             border: 2px solid #ffc107;
@@ -170,11 +170,6 @@
             color: #856404;
             margin-bottom: 15px;
             font-size: 1.3rem;
-        }
-        
-        .monetizacion-box p {
-            color: #856404;
-            margin-bottom: 20px;
         }
         
         .btn-afiliado {
@@ -194,7 +189,7 @@
             box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
         }
         
-        /* Productos Amazon (monetización) */
+        /* Productos Amazon */
         .amazon-section {
             background: white;
             padding: 40px 0;
@@ -252,7 +247,7 @@
             font-size: 0.9rem;
         }
         
-        /* Stats virales */
+        /* Stats */
         .stats-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -272,7 +267,7 @@
             margin-bottom: 5px;
         }
         
-        /* Comparación de aseguradoras */
+        /* Comparación */
         .comparacion-section {
             background: white;
             padding: 40px 0;
@@ -331,7 +326,7 @@
             font-weight: bold;
         }
         
-        /* Referidos apps */
+        /* Referidos */
         .referidos-section {
             background: #e8f5e9;
             padding: 40px 0;
@@ -376,7 +371,7 @@
             margin-top: 10px;
         }
         
-        /* Share buttons */
+        /* Share */
         .share-section {
             text-align: center;
             margin: 40px 0;
@@ -399,7 +394,7 @@
         .share-twitter { background: #1da1f2; }
         .share-whatsapp { background: #25d366; }
         
-        /* Disclaimer AFILIADOS (REQUERIDO) */
+        /* Disclaimer */
         .disclaimer-afiliados {
             background: #f1f3f4;
             padding: 20px;
@@ -449,19 +444,20 @@
     <section class="hero">
         <div class="container">
             <h1>Calcula tu Seguro de Auto en 30 Segundos</h1>
-            <p>Comparador gratuito. Sin registro. Descubre cuánto deberías pagar y encuentra las mejores ofertas.</p>
+            <p>Comparador gratuito. Sin registro. Descubre cuánto deberías pagar.</p>
         </div>
     </section>
 
-    <!-- CALCULADORA INTERACTIVA -->
+    <!-- CALCULADORA -->
     <div class="container">
         <div class="calculadora-box">
             <h2>🧮 Calculadora de Seguro Auto</h2>
-            <form id="calcForm">
+            
+            <form id="formulario-calculadora">
                 <div class="form-group">
-                    <label>Marca y Modelo del Auto</label>
-                    <select id="marca" required>
-                        <option value="">Selecciona...</option>
+                    <label for="marca">Marca y Modelo del Auto *</label>
+                    <select id="marca" name="marca" required>
+                        <option value="">Selecciona tu marca...</option>
                         <option value="nissan">Nissan - Sedán</option>
                         <option value="toyota">Toyota - Sedán</option>
                         <option value="honda">Honda - Sedán</option>
@@ -474,9 +470,9 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Año del Auto</label>
-                    <select id="anio" required>
-                        <option value="">Selecciona...</option>
+                    <label for="anio">Año del Auto *</label>
+                    <select id="anio" name="anio" required>
+                        <option value="">Selecciona año...</option>
                         <option value="2025">2025</option>
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
@@ -488,9 +484,9 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Tu Edad</label>
-                    <select id="edad" required>
-                        <option value="">Selecciona...</option>
+                    <label for="edad">Tu Edad *</label>
+                    <select id="edad" name="edad" required>
+                        <option value="">Selecciona rango...</option>
                         <option value="18-25">18-25 años</option>
                         <option value="26-35">26-35 años</option>
                         <option value="36-45">36-45 años</option>
@@ -500,114 +496,110 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Código Postal</label>
-                    <input type="text" id="cp" placeholder="Ej: 01000" maxlength="5" required>
+                    <label for="cp">Código Postal *</label>
+                    <input type="text" id="cp" name="cp" placeholder="Ej: 01000" maxlength="5" required>
                 </div>
                 
-                <button type="submit" class="btn-calcular">Calcular Precio Estimado →</button>
+                <button type="submit" class="btn-calcular" id="boton-calcular">
+                    Calcular Precio Estimado →
+                </button>
             </form>
             
-            <div id="resultado" class="resultado">
-                <p>Tu seguro estimado:</p>
-                <div class="precio-estimado" id="precio">$0</div>
-                <p style="color: #666; font-size: 0.9rem;">Este es un estimado. Cotiza gratis para precios exactos.</p>
+            <!-- RESULTADO -->
+            <div id="resultado-calculadora" class="resultado">
+                <p style="font-size: 1.1rem; color: #666; margin-bottom: 10px;">Tu seguro estimado:</p>
+                <div class="precio-estimado" id="precio-mostrado">$0</div>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">
+                    Este es un estimado. Cotiza gratis para precios exactos.
+                </p>
                 
-                <!-- BOTONES DE MONETIZACIÓN APARECEN DESPUÉS DEL CÁLCULO -->
-                <div style="margin-top: 20px;">
-                    <p style="margin-bottom: 15px; font-weight: bold; color: #333;">¿Quieres pagar menos? Te ayudamos:</p>
-                   <a href=https://www.amazon.com/s?k=gps+antirrobo&crid=13RNXV0VBTKRH&sprefix=gps+antir%2Caps%2C313&linkCode=ll2&tag=tussegurosya-20&linkId=44bd85a42806777af97c26d9ed850f64&language=es_US&ref_=as_li_ss_tl 
-   class="btn-amazon" 
-   target="_blank" 
-   onclick="trackEvent('amazon_gps_compra')">
-   Ver en Amazon
-</a>
-                    <a href="#cotizaciones" class="btn-afiliado" style="background: #667eea;" onclick="trackEvent('cotizar_click')">
+                <!-- BOTONES CON LINKS REALES -->
+                <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+                    <p style="margin-bottom: 15px; font-weight: bold; color: #333; font-size: 1.1rem;">
+                        ¿Quieres pagar menos? Te ayudamos:
+                    </p>
+                    <!-- LINK 1: GPS ANTIRROBO -->
+                    <a href="https://www.amazon.com/s?k=gps+antirrobo&crid=13RNXV0VBTKRH&sprefix=gps+antir%2Caps%2C313&linkCode=ll2&tag=tussegurosya-20&linkId=270b5f1fcdbe7be809bf890032e1bd90&language=es_US&ref_=as_li_ss_tl" 
+                       class="btn-afiliado" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       onclick="trackEvent('amazon_gps')">
+                        🛒 GPS Antirrobo (Reduce tu prima)
+                    </a>
+                    <a href="#cotizaciones" 
+                       class="btn-afiliado" 
+                       style="background: #667eea;"
+                       onclick="trackEvent('cotizar_click')">
                         📋 Cotizar con Aseguradoras
                     </a>
                 </div>
             </div>
+            
+            <!-- Mensaje de error -->
+            <div id="mensaje-error" style="display: none; background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-top: 15px;">
+                <strong>Error:</strong> Por favor completa todos los campos.
+            </div>
         </div>
     </div>
 
-    <!-- MONETIZACIÓN: SECCIÓN DE COTIZACIONES -->
+    <!-- SECCIÓN DE COTIZACIONES -->
     <div class="monetizacion-box" id="cotizaciones">
         <h3>🎯 Cotiza Gratis y Ahorra</h3>
-        <p>Hemos negociado cotizaciones especiales para ti. Completa el formulario y recibe ofertas en tu email:</p>
+        <p>Recibe ofertas personalizadas en tu email:</p>
         
-        <form style="max-width: 500px; margin: 0 auto; text-align: left;">
+        <form style="max-width: 500px; margin: 0 auto; text-align: left;" onsubmit="event.preventDefault(); alert('¡Gracias! Te contactaremos pronto.');">
             <div class="form-group">
-                <input type="text" placeholder="Tu nombre completo" style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                <input type="text" placeholder="Tu nombre completo" style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
             </div>
             <div class="form-group">
-                <input type="email" placeholder="Tu correo electrónico" style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                <input type="email" placeholder="Tu correo electrónico" style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
             </div>
-            <div class="form-group">
-                <input type="tel" placeholder="Tu teléfono" style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;">
-            </div>
-            <button type="button" class="btn-calcular" onclick="trackEvent('lead_generado'); alert('¡Gracias! Un asesor te contactará en 24 horas con las mejores ofertas.');">
+            <button type="submit" class="btn-calcular">
                 Recibir Cotizaciones Gratis
             </button>
         </form>
-        <p style="font-size: 0.8rem; margin-top: 15px; color: #856404;">
-            *Al enviar, aceptas que un asesor certificado te contacte. No spam.
-        </p>
     </div>
 
-    <!-- MONETIZACIÓN: PRODUCTOS AMAZON -->
+    <!-- PRODUCTOS AMAZON CON LINKS REALES -->
     <section class="amazon-section">
         <div class="container">
             <h2>📦 Productos que Reducen tu Prima de Seguro</h2>
             <p style="text-align: center; color: #666; margin-bottom: 30px;">Las aseguradoras dan descuentos si tienes estos dispositivos</p>
             
             <div class="productos-grid">
+                <!-- PRODUCTO 1: GPS ANTIRROBO -->
                 <div class="producto-card">
                     <h4>🔒 GPS Antirrobo</h4>
                     <p>Rastreo satelital 24/7</p>
-                    <div class="precio">Desde $299</div>
-                    <a href="https://www.amazon.com.mx/s?k=gps+auto+antirobo" class="btn-amazon" target="_blank" onclick="trackEvent('amazon_gps_card')">
-                        Ver en Amazon
+                    <div class="precio">Ver en Amazon</div>
+                    <a href="https://www.amazon.com/s?k=gps+antirrobo&crid=13RNXV0VBTKRH&sprefix=gps+antir%2Caps%2C313&linkCode=ll2&tag=tussegurosya-20&linkId=270b5f1fcdbe7be809bf890032e1bd90&language=es_US&ref_=as_li_ss_tl" 
+                       class="btn-amazon" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       onclick="trackEvent('amazon_gps_card')">
+                       Ver en Amazon
                     </a>
                     <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">Descuento en seguro: 10-15%</p>
                 </div>
                 
+                <!-- PRODUCTO 2: DASHCAM -->
                 <div class="producto-card">
                     <h4>📹 Cámara Dashcam</h4>
                     <p>Grabación continua HD</p>
-                    <div class="precio">Desde $449</div>
-                    <a href="https://www.amazon.com.mx/s?k=dashcam+auto" class="btn-amazon" target="_blank" onclick="trackEvent('amazon_dashcam')">
-                        Ver en Amazon
+                    <div class="precio">Ver en Amazon</div>
+                    <a href="https://www.amazon.com/s?k=camera+dash+cam&crid=ZVUISBH2NDKN&sprefix=camara+dash%2Caps%2C310&linkCode=ll2&tag=tussegurosya-20&linkId=53eb95abb87cba856b483e2271ef4cd8&language=es_US&ref_=as_li_ss_tl" 
+                       class="btn-amazon" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       onclick="trackEvent('amazon_dashcam')">
+                       Ver en Amazon
                     </a>
                     <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">Evita fraudes, reduce prima 5%</p>
                 </div>
                 
+                <!-- PRODUCTO 3: SENSOR DE IMPACTO -->
                 <div class="producto-card">
-                    <h4>🔔 Alarma Avanzada</h4>
-                    <p>Sensor de impacto + app</p>
-                    <div class="precio">Desde $599</div>
-                    <a href="https://www.amazon.com.mx/s?k=alarma+auto+sensor" class="btn-amazon" target="_blank" onclick="trackEvent('amazon_alarma')">
-                        Ver en Amazon
-                    </a>
-                    <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">Descuento aseguradora: 8-12%</p>
-                </div>
-                
-                <div class="producto-card">
-                    <h4>📚 Guía de Seguros</h4>
-                    <p>Libro "Ahorra en Seguros"</p>
-                    <div class="precio">$199</div>
-                    <a href="https://www.amazon.com.mx/s?k=seguros+auto+libro" class="btn-amazon" target="_blank" onclick="trackEvent('amazon_libro')">
-                        Ver en Amazon
-                    </a>
-                    <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">Aprende a negociar tu póliza</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats virales -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h3>$847</h3>
-                    <p>Ahorro promedio anual</p>
-                <
+                    <h4>🔔 Sensor de Impacto</h4>
+                    <p>Alarma avanzada + app</p>
+                    <div class="precio">Ver en Amazon</div>
+                    <a href="https://www.amazon.com/s?k=sensor+de+impacto&crid=2QM8XANP89S8G&sprefix=senso
