@@ -104,7 +104,7 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
         
-        /* RESULTADO - ESTILO CORREGIDO */
+        /* RESULTADO */
         #resultado-box {
             display: none;
             background: #f8f9fa;
@@ -193,12 +193,11 @@
         </div>
     </section>
 
-    <!-- CALCULADORA CON IDs ÚNICOS Y CLAROS -->
+    <!-- CALCULADORA -->
     <div class="container">
         <div class="calculadora-box">
             <h2>🧮 Ingresa tus datos</h2>
             
-            <!-- FORMULARIO CON ID ÚNICO: calc-form -->
             <form id="calc-form">
                 <div class="form-group">
                     <label for="marca-auto">Marca del Auto</label>
@@ -246,13 +245,13 @@
                 </button>
             </form>
             
-            <!-- RESULTADO CON IDs ÚNICOS -->
+            <!-- RESULTADO -->
             <div id="resultado-box">
                 <p style="color: #666; margin-bottom: 10px;">Tu seguro estimado:</p>
                 <div id="precio-final">$0</div>
                 <p style="color: #666; font-size: 0.9rem;">mensual</p>
                 
-                <!-- LINKS AMAZON REALES -->
+                <!-- LINK AMAZON REAL -->
                 <div style="margin-top: 20px;">
                     <p style="margin-bottom: 15px; font-weight: bold;">Reduce tu prima con:</p>
                     <a href="https://www.amazon.com/s?k=gps+antirrobo&crid=13RNXV0VBTKRH&sprefix=gps+antir%2Caps%2C313&linkCode=ll2&tag=tussegurosya-20&linkId=270b5f1fcdbe7be809bf890032e1bd90&language=es_US&ref_=as_li_ss_tl" 
@@ -332,99 +331,75 @@
         </div>
     </footer>
 
-    <!-- JAVASCRIPT SIMPLIFICADO Y CORREGIDO -->
+    <!-- JAVASCRIPT EMBEBIDO - NO NECESITA ARCHIVOS EXTERNOS -->
     <script>
-        // Esperar a que todo cargue
+        // Código que se ejecuta cuando la página carga
         window.onload = function() {
-            console.log('Página cargada - iniciando script');
+            console.log('✅ Página cargada correctamente');
             
-            // Obtener elementos por ID
-            var formulario = document.getElementById('calc-form');
-            var resultadoBox = document.getElementById('resultado-box');
-            var precioFinal = document.getElementById('precio-final');
-            var errorMsg = document.getElementById('error-msg');
+            // Obtener elementos del formulario
+            var form = document.getElementById('calc-form');
+            var resultado = document.getElementById('resultado-box');
+            var precioTexto = document.getElementById('precio-final');
+            var error = document.getElementById('error-msg');
             
-            // Verificar que existen
-            if (!formulario) {
-                console.error('ERROR: No encontré el formulario con ID calc-form');
-                return;
-            }
-            if (!resultadoBox) {
-                console.error('ERROR: No encontré resultado-box');
-                return;
-            }
-            if (!precioFinal) {
-                console.error('ERROR: No encontré precio-final');
-                return;
-            }
-            
-            console.log('Todos los elementos encontrados correctamente');
-            
-            // Agregar evento al formulario
-            formulario.onsubmit = function(e) {
-                // Prevenir que se envíe el formulario
-                e.preventDefault();
-                console.log('Formulario enviado');
+            // Cuando envían el formulario
+            form.onsubmit = function(e) {
+                e.preventDefault(); // Evitar que se recargue la página
                 
-                // Ocultar error previo
-                errorMsg.style.display = 'none';
+                // Ocultar error anterior
+                error.style.display = 'none';
                 
-                // Obtener valores
+                // Obtener valores seleccionados
                 var marca = document.getElementById('marca-auto').value;
                 var anio = document.getElementById('anio-auto').value;
                 var edad = document.getElementById('edad-conductor').value;
                 
                 console.log('Valores:', marca, anio, edad);
                 
-                // Validar
+                // Validar que no estén vacíos
                 if (!marca || !anio || !edad) {
-                    console.log('Campos vacíos - mostrando error');
-                    errorMsg.style.display = 'block';
-                    resultadoBox.classList.remove('visible');
+                    error.style.display = 'block';
+                    resultado.classList.remove('visible');
                     return false;
                 }
                 
-                // Calcular precio
+                // Calcular precio base
                 var precio = 500;
                 
-                // Factor marca
-                if (marca === 'bmw') precio = precio * 1.8;
-                else if (marca === 'ford') precio = precio * 1.15;
-                else if (marca === 'mazda') precio = precio * 1.1;
-                else if (marca === 'vw') precio = precio * 1.1;
-                else if (marca === 'toyota') precio = precio * 1.05;
-                else if (marca === 'chevrolet') precio = precio * 0.95;
+                // Multiplicadores por marca
+                if (marca === 'bmw') precio *= 1.8;
+                else if (marca === 'ford') precio *= 1.15;
+                else if (marca === 'mazda') precio *= 1.1;
+                else if (marca === 'vw') precio *= 1.1;
+                else if (marca === 'toyota') precio *= 1.05;
+                else if (marca === 'chevrolet') precio *= 0.95;
                 
-                // Factor año
-                if (anio === '2025') precio = precio * 1.3;
-                else if (anio === '2024') precio = precio * 1.2;
-                else if (anio === '2023') precio = precio * 1.1;
-                else if (anio === '2021') precio = precio * 0.95;
-                else if (anio === '2020') precio = precio * 0.9;
-                else if (anio === '2019') precio = precio * 0.85;
+                // Multiplicadores por año
+                if (anio === '2025') precio *= 1.3;
+                else if (anio === '2024') precio *= 1.2;
+                else if (anio === '2023') precio *= 1.1;
+                else if (anio === '2021') precio *= 0.95;
+                else if (anio === '2020') precio *= 0.9;
+                else if (anio === '2019') precio *= 0.85;
                 
-                // Factor edad
-                if (edad === '18-25') precio = precio * 1.5;
-                else if (edad === '36-45') precio = precio * 0.9;
-                else if (edad === '46-55') precio = precio * 0.95;
-                
-                // Redondear
-                var precioRedondeado = Math.round(precio);
-                console.log('Precio calculado:', precioRedondeado);
+                // Multiplicadores por edad
+                if (edad === '18-25') precio *= 1.5;
+                else if (edad === '36-45') precio *= 0.9;
+                else if (edad === '46-55') precio *= 0.95;
                 
                 // Mostrar resultado
-                precioFinal.textContent = '$' + precioRedondeado + '/mes';
-                resultadoBox.classList.add('visible');
+                var precioFinal = Math.round(precio);
+                precioTexto.innerHTML = '$' + precioFinal + '<span style="font-size:1rem; color:#666;">/mes</span>';
+                resultado.classList.add('visible');
                 
-                // Scroll al resultado
-                resultadoBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Scroll suave al resultado
+                resultado.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
-                console.log('Resultado mostrado correctamente');
+                console.log('✅ Precio calculado:', precioFinal);
                 
                 return false;
             };
-            
-            console.log('Evento agregado al formulario');
         };
     </script>
 
