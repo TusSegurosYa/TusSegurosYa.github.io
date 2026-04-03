@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Calcula tu seguro de auto gratis. Comparador de precios, calculadora de ahorro y cotizaciones inmediatas.">
-    <title>Calculadora Seguro Auto | Cotiza Gratis 2025</title>
+    <title>Calculadora Seguro Auto</title>
     
     <style>
         * {
@@ -26,21 +25,10 @@
             padding: 0 20px;
         }
         
-        /* Header */
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
         
         .logo {
@@ -50,12 +38,10 @@
             color: white;
         }
         
-        /* Hero */
         .hero {
             background: white;
             padding: 40px 0;
             text-align: center;
-            margin-bottom: 30px;
         }
         
         .hero h1 {
@@ -64,14 +50,7 @@
             margin-bottom: 10px;
         }
         
-        .hero p {
-            color: #666;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Calculadora */
+        /* CALCULADORA */
         .calculadora-box {
             background: white;
             padding: 30px;
@@ -86,7 +65,6 @@
             text-align: center;
             color: #667eea;
             margin-bottom: 20px;
-            font-size: 1.5rem;
         }
         
         .form-group {
@@ -100,8 +78,8 @@
             color: #555;
         }
         
-        .form-group input,
-        .form-group select {
+        .form-group select,
+        .form-group input {
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
@@ -119,7 +97,6 @@
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            transition: transform 0.2s;
         }
         
         .btn-calcular:hover {
@@ -127,8 +104,8 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
         
-        /* Resultado */
-        .resultado {
+        /* RESULTADO - ESTILO CORREGIDO */
+        #resultado-box {
             display: none;
             background: #f8f9fa;
             padding: 25px;
@@ -138,55 +115,15 @@
             border-left: 5px solid #28a745;
         }
         
-        .resultado.mostrar {
-            display: block !important;
-            animation: slideDown 0.5s ease;
+        #resultado-box.visible {
+            display: block;
         }
         
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .precio-estimado {
-            font-size: 2.5rem;
+        #precio-final {
+            font-size: 3rem;
             color: #28a745;
             font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        /* Monetización */
-        .monetizacion-box {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 30px auto;
-            max-width: 800px;
-            text-align: center;
-        }
-        
-        .monetizacion-box h3 {
-            color: #856404;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        
-        .btn-afiliado {
-            display: inline-block;
-            background: #28a745;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            margin: 10px;
-            transition: all 0.3s;
-        }
-        
-        .btn-afiliado:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+            margin: 15px 0;
         }
         
         /* Productos Amazon */
@@ -199,7 +136,6 @@
         .amazon-section h2 {
             text-align: center;
             margin-bottom: 30px;
-            color: #333;
         }
         
         .productos-grid {
@@ -216,24 +152,10 @@
             border-radius: 10px;
             text-align: center;
             border: 2px solid #e0e0e0;
-            transition: all 0.3s;
         }
         
         .producto-card:hover {
             border-color: #ff9900;
-            transform: translateY(-5px);
-        }
-        
-        .producto-card h4 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .producto-card .precio {
-            color: #b12704;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin: 10px 0;
         }
         
         .btn-amazon {
@@ -244,165 +166,7 @@
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
-            font-size: 0.9rem;
-        }
-        
-        /* Stats */
-        .stats-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 0;
-            margin-bottom: 30px;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            text-align: center;
-        }
-        
-        .stat-item h3 {
-            font-size: 2.5rem;
-            margin-bottom: 5px;
-        }
-        
-        /* Comparación */
-        .comparacion-section {
-            background: white;
-            padding: 40px 0;
-            margin-bottom: 30px;
-        }
-        
-        .comparacion-section h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-        
-        .aseguradoras-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .aseguradora-card {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-        }
-        
-        .aseguradora-card:hover {
-            border-color: #667eea;
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .aseguradora-card h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        
-        .precio-tag {
-            font-size: 1.5rem;
-            color: #28a745;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        .btn-cotizar {
-            background: #28a745;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
             margin-top: 10px;
-            font-weight: bold;
-        }
-        
-        /* Referidos */
-        .referidos-section {
-            background: #e8f5e9;
-            padding: 40px 0;
-            margin: 30px 0;
-        }
-        
-        .referidos-section h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #2e7d32;
-        }
-        
-        .apps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .app-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .app-card h4 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .btn-referido {
-            display: inline-block;
-            background: #000;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-        
-        /* Share */
-        .share-section {
-            text-align: center;
-            margin: 40px 0;
-            padding: 30px;
-            background: white;
-            border-radius: 10px;
-        }
-        
-        .share-btn {
-            display: inline-block;
-            margin: 5px;
-            padding: 12px 25px;
-            border-radius: 5px;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        .share-facebook { background: #3b5998; }
-        .share-twitter { background: #1da1f2; }
-        .share-whatsapp { background: #25d366; }
-        
-        /* Disclaimer */
-        .disclaimer-afiliados {
-            background: #f1f3f4;
-            padding: 20px;
-            margin: 30px 0;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: #666;
-            text-align: center;
         }
         
         /* Footer */
@@ -412,67 +176,49 @@
             padding: 40px 0;
             text-align: center;
         }
-        
-        .footer p {
-            opacity: 0.8;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
 
     <header class="header">
         <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">🚗 AhorraSeguro</a>
-            </div>
+            <div class="logo">🚗 AhorraSeguro</div>
         </div>
     </header>
 
     <section class="hero">
         <div class="container">
-            <h1>Calcula tu Seguro de Auto en 30 Segundos</h1>
-            <p>Comparador gratuito. Sin registro. Descubre cuánto deberías pagar.</p>
+            <h1>Calcula tu Seguro de Auto</h1>
+            <p>Estimación gratuita en segundos</p>
         </div>
     </section>
 
-    <!-- CALCULADORA -->
+    <!-- CALCULADORA CON IDs ÚNICOS Y CLAROS -->
     <div class="container">
         <div class="calculadora-box">
-            <h2>🧮 Calculadora de Seguro Auto</h2>
+            <h2>🧮 Ingresa tus datos</h2>
             
-            <form id="formulario-calculadora">
+            <!-- FORMULARIO CON ID ÚNICO: calc-form -->
+            <form id="calc-form">
                 <div class="form-group">
-                    <label for="marca">Marca y Modelo del Auto *</label>
-                    <select id="marca" name="marca" required>
-                        <option value="">Selecciona tu marca...</option>
-                        <option value="nissan">Nissan - Sedán</option>
-                        <option value="toyota">Toyota - Sedán</option>
-                        <option value="honda">Honda - Sedán</option>
-                        <option value="vw">Volkswagen - Sedán</option>
-                        <option value="chevrolet">Chevrolet - Sedán</option>
-                        <option value="ford">Ford - SUV</option>
-                        <option value="mazda">Mazda - SUV</option>
+                    <label for="marca-auto">Marca del Auto</label>
+                    <select id="marca-auto" required>
+                        <option value="">Selecciona...</option>
+                        <option value="nissan">Nissan</option>
+                        <option value="toyota">Toyota</option>
+                        <option value="honda">Honda</option>
+                        <option value="vw">Volkswagen</option>
+                        <option value="chevrolet">Chevrolet</option>
+                        <option value="ford">Ford</option>
+                        <option value="mazda">Mazda</option>
                         <option value="bmw">BMW/Lujo</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="anio">Año del Auto *</label>
-                    <select id="anio" name="anio" required>
-                        <option value="">Selecciona año...</option>
+                    <label for="anio-auto">Año</label>
+                    <select id="anio-auto" required>
+                        <option value="">Selecciona...</option>
                         <option value="2025">2025</option>
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
@@ -484,9 +230,9 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="edad">Tu Edad *</label>
-                    <select id="edad" name="edad" required>
-                        <option value="">Selecciona rango...</option>
+                    <label for="edad-conductor">Tu Edad</label>
+                    <select id="edad-conductor" required>
+                        <option value="">Selecciona...</option>
                         <option value="18-25">18-25 años</option>
                         <option value="26-35">26-35 años</option>
                         <option value="36-45">36-45 años</option>
@@ -495,111 +241,192 @@
                     </select>
                 </div>
                 
-                <div class="form-group">
-                    <label for="cp">Código Postal *</label>
-                    <input type="text" id="cp" name="cp" placeholder="Ej: 01000" maxlength="5" required>
-                </div>
-                
-                <button type="submit" class="btn-calcular" id="boton-calcular">
-                    Calcular Precio Estimado →
+                <button type="submit" class="btn-calcular">
+                    Calcular Precio →
                 </button>
             </form>
             
-            <!-- RESULTADO -->
-            <div id="resultado-calculadora" class="resultado">
-                <p style="font-size: 1.1rem; color: #666; margin-bottom: 10px;">Tu seguro estimado:</p>
-                <div class="precio-estimado" id="precio-mostrado">$0</div>
-                <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">
-                    Este es un estimado. Cotiza gratis para precios exactos.
-                </p>
+            <!-- RESULTADO CON IDs ÚNICOS -->
+            <div id="resultado-box">
+                <p style="color: #666; margin-bottom: 10px;">Tu seguro estimado:</p>
+                <div id="precio-final">$0</div>
+                <p style="color: #666; font-size: 0.9rem;">mensual</p>
                 
-                <!-- BOTONES CON LINKS REALES -->
-                <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
-                    <p style="margin-bottom: 15px; font-weight: bold; color: #333; font-size: 1.1rem;">
-                        ¿Quieres pagar menos? Te ayudamos:
-                    </p>
-                    <!-- LINK 1: GPS ANTIRROBO -->
+                <!-- LINKS AMAZON REALES -->
+                <div style="margin-top: 20px;">
+                    <p style="margin-bottom: 15px; font-weight: bold;">Reduce tu prima con:</p>
                     <a href="https://www.amazon.com/s?k=gps+antirrobo&crid=13RNXV0VBTKRH&sprefix=gps+antir%2Caps%2C313&linkCode=ll2&tag=tussegurosya-20&linkId=270b5f1fcdbe7be809bf890032e1bd90&language=es_US&ref_=as_li_ss_tl" 
-                       class="btn-afiliado" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       onclick="trackEvent('amazon_gps')">
-                        🛒 GPS Antirrobo (Reduce tu prima)
-                    </a>
-                    <a href="#cotizaciones" 
-                       class="btn-afiliado" 
-                       style="background: #667eea;"
-                       onclick="trackEvent('cotizar_click')">
-                        📋 Cotizar con Aseguradoras
+                       class="btn-amazon" 
+                       target="_blank">
+                        🛒 GPS Antirrobo
                     </a>
                 </div>
             </div>
             
-            <!-- Mensaje de error -->
-            <div id="mensaje-error" style="display: none; background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-top: 15px;">
-                <strong>Error:</strong> Por favor completa todos los campos.
+            <!-- MENSAJE DE ERROR -->
+            <div id="error-msg" style="display: none; background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-top: 15px;">
+                Por favor completa todos los campos.
             </div>
         </div>
-    </div>
-
-    <!-- SECCIÓN DE COTIZACIONES -->
-    <div class="monetizacion-box" id="cotizaciones">
-        <h3>🎯 Cotiza Gratis y Ahorra</h3>
-        <p>Recibe ofertas personalizadas en tu email:</p>
-        
-        <form style="max-width: 500px; margin: 0 auto; text-align: left;" onsubmit="event.preventDefault(); alert('¡Gracias! Te contactaremos pronto.');">
-            <div class="form-group">
-                <input type="text" placeholder="Tu nombre completo" style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
-            </div>
-            <div class="form-group">
-                <input type="email" placeholder="Tu correo electrónico" style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
-            </div>
-            <button type="submit" class="btn-calcular">
-                Recibir Cotizaciones Gratis
-            </button>
-        </form>
     </div>
 
     <!-- PRODUCTOS AMAZON CON LINKS REALES -->
     <section class="amazon-section">
         <div class="container">
-            <h2>📦 Productos que Reducen tu Prima de Seguro</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 30px;">Las aseguradoras dan descuentos si tienes estos dispositivos</p>
+            <h2>📦 Productos Recomendados</h2>
             
             <div class="productos-grid">
-                <!-- PRODUCTO 1: GPS ANTIRROBO -->
+                <!-- GPS -->
                 <div class="producto-card">
                     <h4>🔒 GPS Antirrobo</h4>
                     <p>Rastreo satelital 24/7</p>
-                    <div class="precio">Ver en Amazon</div>
                     <a href="https://www.amazon.com/s?k=gps+antirrobo&crid=13RNXV0VBTKRH&sprefix=gps+antir%2Caps%2C313&linkCode=ll2&tag=tussegurosya-20&linkId=270b5f1fcdbe7be809bf890032e1bd90&language=es_US&ref_=as_li_ss_tl" 
                        class="btn-amazon" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       onclick="trackEvent('amazon_gps_card')">
+                       target="_blank">
                        Ver en Amazon
                     </a>
-                    <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">Descuento en seguro: 10-15%</p>
                 </div>
                 
-                <!-- PRODUCTO 2: DASHCAM -->
+                <!-- DASHCAM -->
                 <div class="producto-card">
                     <h4>📹 Cámara Dashcam</h4>
                     <p>Grabación continua HD</p>
-                    <div class="precio">Ver en Amazon</div>
                     <a href="https://www.amazon.com/s?k=camera+dash+cam&crid=ZVUISBH2NDKN&sprefix=camara+dash%2Caps%2C310&linkCode=ll2&tag=tussegurosya-20&linkId=53eb95abb87cba856b483e2271ef4cd8&language=es_US&ref_=as_li_ss_tl" 
                        class="btn-amazon" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       onclick="trackEvent('amazon_dashcam')">
+                       target="_blank">
                        Ver en Amazon
                     </a>
-                    <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">Evita fraudes, reduce prima 5%</p>
                 </div>
                 
-                <!-- PRODUCTO 3: SENSOR DE IMPACTO -->
+                <!-- SENSOR -->
                 <div class="producto-card">
                     <h4>🔔 Sensor de Impacto</h4>
-                    <p>Alarma avanzada + app</p>
-                    <div class="precio">Ver en Amazon</div>
-                    <a href="https://www.amazon.com/s?k=sensor+de+impacto&crid=2QM8XANP89S8G&sprefix=senso
+                    <p>Alarma avanzada</p>
+                    <a href="https://www.amazon.com/s?k=sensor+de+impacto&crid=2QM8XANP89S8G&sprefix=sensor+de+im%2Caps%2C355&linkCode=ll2&tag=tussegurosya-20&linkId=cca642b237a75a5a996e74a82294ff13&language=es_US&ref_=as_li_ss_tl" 
+                       class="btn-amazon" 
+                       target="_blank">
+                       Ver en Amazon
+                    </a>
+                </div>
+                
+                <!-- LIBRO -->
+                <div class="producto-card">
+                    <h4>📚 Guía de Seguros</h4>
+                    <p>Aprende a ahorrar</p>
+                    <a href="https://www.amazon.com/s?k=seguros+auto+libro&__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=2FRG6K7J3FW1&sprefix=seguros+auto+libros%2Caps%2C388&linkCode=ll2&tag=tussegurosya-20&linkId=1a9b061f21242a2182cfec42d09608b4&language=es_US&ref_=as_li_ss_tl" 
+                       class="btn-amazon" 
+                       target="_blank">
+                       Ver en Amazon
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p><strong>AhorraSeguro</strong> - Calculadora gratuita</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">
+                Afiliado Amazon: tussegurosya-20
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT SIMPLIFICADO Y CORREGIDO -->
+    <script>
+        // Esperar a que todo cargue
+        window.onload = function() {
+            console.log('Página cargada - iniciando script');
+            
+            // Obtener elementos por ID
+            var formulario = document.getElementById('calc-form');
+            var resultadoBox = document.getElementById('resultado-box');
+            var precioFinal = document.getElementById('precio-final');
+            var errorMsg = document.getElementById('error-msg');
+            
+            // Verificar que existen
+            if (!formulario) {
+                console.error('ERROR: No encontré el formulario con ID calc-form');
+                return;
+            }
+            if (!resultadoBox) {
+                console.error('ERROR: No encontré resultado-box');
+                return;
+            }
+            if (!precioFinal) {
+                console.error('ERROR: No encontré precio-final');
+                return;
+            }
+            
+            console.log('Todos los elementos encontrados correctamente');
+            
+            // Agregar evento al formulario
+            formulario.onsubmit = function(e) {
+                // Prevenir que se envíe el formulario
+                e.preventDefault();
+                console.log('Formulario enviado');
+                
+                // Ocultar error previo
+                errorMsg.style.display = 'none';
+                
+                // Obtener valores
+                var marca = document.getElementById('marca-auto').value;
+                var anio = document.getElementById('anio-auto').value;
+                var edad = document.getElementById('edad-conductor').value;
+                
+                console.log('Valores:', marca, anio, edad);
+                
+                // Validar
+                if (!marca || !anio || !edad) {
+                    console.log('Campos vacíos - mostrando error');
+                    errorMsg.style.display = 'block';
+                    resultadoBox.classList.remove('visible');
+                    return false;
+                }
+                
+                // Calcular precio
+                var precio = 500;
+                
+                // Factor marca
+                if (marca === 'bmw') precio = precio * 1.8;
+                else if (marca === 'ford') precio = precio * 1.15;
+                else if (marca === 'mazda') precio = precio * 1.1;
+                else if (marca === 'vw') precio = precio * 1.1;
+                else if (marca === 'toyota') precio = precio * 1.05;
+                else if (marca === 'chevrolet') precio = precio * 0.95;
+                
+                // Factor año
+                if (anio === '2025') precio = precio * 1.3;
+                else if (anio === '2024') precio = precio * 1.2;
+                else if (anio === '2023') precio = precio * 1.1;
+                else if (anio === '2021') precio = precio * 0.95;
+                else if (anio === '2020') precio = precio * 0.9;
+                else if (anio === '2019') precio = precio * 0.85;
+                
+                // Factor edad
+                if (edad === '18-25') precio = precio * 1.5;
+                else if (edad === '36-45') precio = precio * 0.9;
+                else if (edad === '46-55') precio = precio * 0.95;
+                
+                // Redondear
+                var precioRedondeado = Math.round(precio);
+                console.log('Precio calculado:', precioRedondeado);
+                
+                // Mostrar resultado
+                precioFinal.textContent = '$' + precioRedondeado + '/mes';
+                resultadoBox.classList.add('visible');
+                
+                // Scroll al resultado
+                resultadoBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                console.log('Resultado mostrado correctamente');
+                
+                return false;
+            };
+            
+            console.log('Evento agregado al formulario');
+        };
+    </script>
+
+</body>
+</html>
